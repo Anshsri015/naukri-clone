@@ -15,6 +15,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// 👇 YE NAYI LINE YAHA AAYEGI
+app.use((req, res, next) => {
+  console.log(`📩 ${req.method} ${req.url} - ${new Date().toISOString()}`);
+  next();
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobsRoutes);
 app.use('/api/profile', profileRoutes);
