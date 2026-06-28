@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/api_service.dart';
 import '../models/user_model.dart';
+import 'package:dio/dio.dart';
 
 class AuthProvider extends ChangeNotifier {
   UserModel? _user;
@@ -31,7 +32,15 @@ class AuthProvider extends ChangeNotifier {
       return true;
     } catch (e) {
       _isLoading = false;
-      _error = 'Registration failed. Please try again.';
+      if (e is DioException) {
+        print('🔴 DioException: ${e.response?.statusCode} - ${e.response
+            ?.data} - ${e.message}');
+        _error = e.response?.data['message'] ??
+            'Registration failed. Please try again.';
+      } else {
+        print('🔴 Unknown error: $e');
+        _error = 'Registration failed. Please try again.';
+      }
       notifyListeners();
       return false;
     }
@@ -78,3 +87,4 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+

@@ -1,5 +1,4 @@
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
@@ -11,7 +10,7 @@ const jobsRoutes = require('./src/routes/jobs.routes');
 const profileRoutes = require('./src/routes/profile.routes');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
