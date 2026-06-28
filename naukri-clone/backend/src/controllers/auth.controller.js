@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const db = require('../db/database');
 
 const register = (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { name, password, phone } = req.body;
+  const email = req.body.email?.trim().toLowerCase();
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: 'Name, email and password are required' });
@@ -33,7 +34,8 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { email, password } = req.body;
+  const { password } = req.body;
+  const email = req.body.email?.trim().toLowerCase();
 
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password are required' });
